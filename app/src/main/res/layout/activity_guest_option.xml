@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.homestay.bipin.guest.guestOption.view.GuestOptionActivity">
+
+    <include
+        layout="@layout/app_bar"
+        android:id="@+id/app_bar_guest_option"/>
+
+    <fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="com.homestay.bipin.guest.fragment.guestOption.GuestOptionFragment"
+    android:id="@+id/guest_option_fragment"/>
+
+</LinearLayout>
