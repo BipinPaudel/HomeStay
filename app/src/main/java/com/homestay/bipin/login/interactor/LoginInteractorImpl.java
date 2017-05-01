@@ -26,9 +26,9 @@ public class LoginInteractorImpl implements LoginInteractor{
                     error=false;
                     return;
                 }
-                if (!error){
+//                if (!error){
                     listener.onSuccess();
-                }
+//                }
             }
         },500);
     }

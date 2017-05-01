@@ -12,9 +12,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/app_bar"
-        android:id="@+id/app_bar"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +23,7 @@
 
             android:id="@+id/guest_recycler_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

@@ -28,6 +28,7 @@ public class GuestPresenterImpl implements GuestPresenter,GuestInteractor.OnGues
         }
         guestInteractor.addGuestToDatabase(name,this);
 
+
     }
 
     @Override

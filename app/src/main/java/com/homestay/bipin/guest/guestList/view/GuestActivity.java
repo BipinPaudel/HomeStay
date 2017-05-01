@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 
 import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.homestay.bipin.R;
 import com.homestay.bipin.data.HomeStayDbHelper;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 public class GuestActivity extends AppCompatActivity implements GuestView, GuestListFragmentImpl.PassListToGuestActivity {
 
 
-//    @BindView(R.id.fab) FloatingActionButton fab;
+    //    @BindView(R.id.fab) FloatingActionButton fab;
     CoordinatorLayout coordinatorLayout;
     GuestPresenter guestPresenter;
     FragmentManager fragmentManager;
@@ -42,16 +43,8 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
         setContentView(R.layout.activity_guest);
         ButterKnife.bind(this);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        Cursor cursor = new GuestDataBaseAdapter(getApplicationContext()).getAllGuests();
-//        while(!cursor.isAfterLast()) {
-//            System.out.println(cursor.getString(cursor.getColumnIndex(HomeStayDbHelper.GUEST_GID)));
-//            System.out.println(cursor.getString(cursor.getColumnIndex(HomeStayDbHelper.GUEST_NAME)));
-//            System.out.println(cursor.getString(cursor.getColumnIndex(HomeStayDbHelper.GUEST_DATE)));
-//            cursor.moveToNext();
-//        }
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
 
 
         fragmentManager = getFragmentManager();
@@ -59,17 +52,14 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
         guestListFragment.setPassToGuest(this);
 
 
+        guestPresenter = new GuestPresenterImpl(this);
 
-        guestPresenter= new GuestPresenterImpl(this);
-
-//        guestListFragment.
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("resume load");
 //
         guestPresenter.loadGuestData();
 //        Intent intent = getIntent();
@@ -81,27 +71,28 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
     @Override
     protected void onRestart() {
         super.onRestart();
-        System.out.println("restarted");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        System.out.println("paused");
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        System.out.println("started");
-    }
 
+    }
 
 
     @Override
     public void getGuestName(String name) {
-        System.out.println("Name in activity "+name);
+
+
         guestPresenter.validateGuest(name);
+        guestListFragment.nullFragment();
+        // guestPresenter.loadGuestData();
 //        reloadActivity();
     }
 
@@ -114,7 +105,7 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
 
     @Override
     public void getEditGuestName(Integer id, String name) {
-        guestPresenter.validateEditGuest(id,name);
+        guestPresenter.validateEditGuest(id, name);
         guestPresenter.loadGuestData();
 //        reloadActivity();
 
@@ -123,55 +114,64 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
 
     @Override
     public void guestNotAddedSnack() {
-        Snackbar.make(coordinatorLayout,"Name not added",Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(coordinatorLayout, "Name not added", Snackbar.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void guestAddedSnack() {
-        Snackbar.make(coordinatorLayout,"Name added",Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(coordinatorLayout, "Name added", Snackbar.LENGTH_SHORT).show();
+        guestPresenter.loadGuestData();
 
 //        reloadActivity();
     }
 
     @Override
     public void passCursorToFragment(Cursor cursor) {
-        if (guestListFragment!=null)
-        guestListFragment.passCursor(cursor);
+
+        if (guestListFragment != null)
+            guestListFragment.passCursor(cursor);
     }
 
 
     @Override
     public void passCoordinateLayout(CoordinatorLayout coordinatorLayout) {
-        System.out.println("coord came");
-        this.coordinatorLayout= coordinatorLayout;
+
+        this.coordinatorLayout = coordinatorLayout;
     }
 
     @Override
-    public void passListInfo(Integer id,String data) {
+    public void passListInfo(Integer id, String data) {
         guestOptionFragment = (GuestOptionFragment) fragmentManager.findFragmentById(R.id.guest_option_fragment);
-        if (guestOptionFragment!=null && guestOptionFragment.isVisible()){
-        guestOptionFragment.changeData(id,data);
-        }
-        else{
+        if (guestOptionFragment != null && guestOptionFragment.isVisible()) {
+            guestOptionFragment.changeData(id, data);
+        } else {
             Intent intent = new Intent(GuestActivity.this, GuestOptionActivity.class);
-            intent.putExtra("data",data);
-            intent.putExtra("id",id);
+            System.out.println("la etai");
+            intent.putExtra("data", data);
+            intent.putExtra("id", id);
+
             startActivity(intent);
         }
     }
 
     @Override
     public void passEditInfo(Integer id, String name) {
-        GuestEditFragment gef=null;
-        if (gef==null) {
-            gef=new GuestEditFragment();
-            Bundle b = new Bundle();
-            b.putInt("id", id);
-            b.putString("name", name);
-            gef.setArguments(b);
 
-            gef.show(getFragmentManager(), "EEE");
-        }
+
+        GuestEditFragment gef = new GuestEditFragment();
+        Bundle b = new Bundle();
+        b.putInt("id", id);
+        b.putString("name", name);
+        gef.setArguments(b);
+        System.out.println("inside here");
+        gef.show(getFragmentManager(), "EEE");
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
     }
 }

@@ -8,5 +8,12 @@
         android:layout_height="wrap_content"
         android:text="asdfasdf"
         android:id="@+id/ttt"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Go to food menu"
+        android:id="@+id/go_to_menu_id"/>
     
 </LinearLayout>

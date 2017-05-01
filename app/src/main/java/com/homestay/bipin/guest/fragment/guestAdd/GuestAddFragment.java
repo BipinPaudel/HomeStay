@@ -50,7 +50,7 @@ public class GuestAddFragment extends DialogFragment {
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View textEntryView = factory.inflate(R.layout.dialog_guest_add, null);
         guestName = (EditText) textEntryView.findViewById(R.id.guest_name_editText);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
 
         builder.setView(textEntryView)
@@ -62,6 +62,7 @@ public class GuestAddFragment extends DialogFragment {
                         String name = guestName.getText().toString();
                         System.out.println("name takne " + name + " is name");
                         guestView.getGuestName(name);
+                        return;
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

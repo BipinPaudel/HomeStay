@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.homestay.bipin.R;
 import com.homestay.bipin.guest.fragment.guestOption.GuestOptionFragment;
@@ -21,7 +22,11 @@ public class GuestOptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_option);
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+
         ButterKnife.bind(this);
+        System.out.println("la feri etai");
         Intent intent = getIntent();
         String data = intent.getStringExtra("data");
         Integer id = intent.getIntExtra("id",0);

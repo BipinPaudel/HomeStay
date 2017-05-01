@@ -11,4 +11,6 @@
     <string name="add_guest">Add Guest</string>
     <string name="guest_name">Name</string>
     <string name="blank_name">Name cannot be blank</string>
+    <string name="edit">Edit</string>
+    <string name="proceed">Proceed</string>
 </resources>

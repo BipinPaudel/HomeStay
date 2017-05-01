@@ -23,11 +23,7 @@ import com.homestay.bipin.guest.fragment.guestAdd.GuestAddFragment;
 import com.homestay.bipin.guest.fragment.guestAdd.GuestEditFragment;
 import com.homestay.bipin.guest.guestList.Guest;
 import com.homestay.bipin.guest.guestList.GuestAdapter;
-import com.homestay.bipin.guest.guestList.GuestDataBaseAdapter;
-import com.homestay.bipin.guest.guestList.interactor.GuestInteractor;
-import com.homestay.bipin.guest.guestList.interactor.GuestInteractorImpl;
-import com.homestay.bipin.guest.guestList.presenter.GuestPresenter;
-import com.homestay.bipin.guest.guestList.view.GuestView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +45,7 @@ public class GuestListFragmentImpl extends Fragment implements GuestListFragment
     RecyclerView recyclerView;
     GuestAdapter guestAdapter;
     LinearLayoutManager recyclerManager;
-
+    GuestAddFragment fr;
 
     @Nullable
     @Override
@@ -60,6 +56,29 @@ public class GuestListFragmentImpl extends Fragment implements GuestListFragment
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coord);
 //        Toolbar toolbar = (Toolbar) view.findViewById(R.id.app_bar);
         recyclerView = (RecyclerView) view.findViewById(R.id.guest_recycler_id);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(),recyclerView,
+                new RecyclerItemClickListener.ClickListener(){
+                    @Override
+                    public boolean onItemClick(View view, int position) {
+                        Integer id = guestAdapter.getId(position).getId();
+                        String name = guestAdapter.getId(position).getName();
+                        System.out.println("short clicked");
+                        passToGuest.passListInfo(id,name);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onLongClick(View view, int position) {
+                        Integer id = guestAdapter.getId(position).getId();
+                        String name = guestAdapter.getId(position).getName();
+                        System.out.println("long clicked");
+                        System.out.println(name);
+                        passToGuest.passEditInfo(id,name);
+                        return true;
+
+                    }
+                }));
 //        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
@@ -68,13 +87,19 @@ public class GuestListFragmentImpl extends Fragment implements GuestListFragment
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GuestAddFragment fr = new GuestAddFragment();
+                fr= new GuestAddFragment();
                 fr.show(getFragmentManager(), "TTT");
 
 
             }
         });
         return view;
+    }
+
+    public void nullFragment(){
+        if (fr!=null){
+            fr=null;
+        }
     }
 
     @Override
@@ -114,27 +139,13 @@ public class GuestListFragmentImpl extends Fragment implements GuestListFragment
         recyclerView.setAdapter(guestAdapter);
         recyclerManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(recyclerManager);
-
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(),recyclerView,
-                new RecyclerItemClickListener.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Integer id = guestAdapter.getId(position).getId();
-                        String name = guestAdapter.getId(position).getName();
-                        passToGuest.passListInfo(id,name);
-                    }
-
-                    @Override
-                    public void onLongClick(View view, int position) {
-                        Integer id = guestAdapter.getId(position).getId();
-                        String name = guestAdapter.getId(position).getName();
-                        passToGuest.passEditInfo(id,name);
-
-                    }
-                }));
+        return;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
 
+    }
 
     public interface PassListToGuestActivity {
         void passCoordinateLayout(CoordinatorLayout cl);

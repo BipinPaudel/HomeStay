@@ -1,5 +1,6 @@
 package com.homestay.bipin.guest.fragment.guestAdd;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -38,6 +39,15 @@ public class GuestEditFragment extends DialogFragment {
         Bundle b = getArguments();
         guestIdToEdit = b.getInt("id");
         guestNameToEdit= b.getString("name");
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Bundle b = getArguments();
+        guestIdToEdit = b.getInt("id");
+        guestNameToEdit= b.getString("name");
     }
 
     @Nullable
@@ -46,7 +56,7 @@ public class GuestEditFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_guest_add, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        System.out.println("from there "+guestNameToEdit);
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -61,6 +71,7 @@ public class GuestEditFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View textEntryView = factory.inflate(R.layout.dialog_guest_add, null);
+
         guestName = (EditText) textEntryView.findViewById(R.id.guest_name_editText);
         guestName.setText(guestNameToEdit);
         Toast.makeText(getActivity(), guestNameToEdit, Toast.LENGTH_SHORT).show();
@@ -69,7 +80,7 @@ public class GuestEditFragment extends DialogFragment {
 
         builder.setView(textEntryView)
                 // Add action buttons
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // sign in the user ...

@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <!--android:theme="@style/AppTheme.AppBarOverlay"-->
+
+        <include
+            layout="@layout/app_bar"
+            android:id="@+id/app_bar"/>
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.homestay.bipin.guest.fragment.guestList.GuestListFragmentImpl"
-        android:id="@+id/guest_list_fragment"
-        android:layout_weight="1"
-        />
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.homestay.bipin.guest.fragment.guestOption.GuestOptionFragment"
-        android:id="@+id/guest_option_fragment"
-        android:layout_weight="1"/>
+        android:orientation="horizontal">
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.homestay.bipin.guest.fragment.guestList.GuestListFragmentImpl"
+            android:id="@+id/guest_list_fragment"
+            android:layout_weight="2"
+            />
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.homestay.bipin.guest.fragment.guestOption.GuestOptionFragment"
+            android:id="@+id/guest_option_fragment"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
 
 </LinearLayout>

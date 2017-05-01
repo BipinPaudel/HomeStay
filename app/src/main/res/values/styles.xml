@@ -1,20 +1,26 @@
 <resources>
 
+
+    <!--base application theme that takes property for below 21-->
+    <style name="AppMaterialTheme" parent="SuperMaterialTheme">
+
+    </style>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SuperMaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--Parent theme for all lollipop and prelollipop because theme.appcompat is compatible for all-->
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppMaterialTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

@@ -60,6 +60,7 @@ public class GuestInteractorImpl implements GuestInteractor{
         System.out.println("inside load Guest");
         Cursor cursor = guestDataBaseAdapter.getAllGuests();
         listener.onGuestLoadedSuccess(cursor);
+
     }
 
 

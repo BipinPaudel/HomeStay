@@ -46,7 +46,7 @@ public class GuestDataBaseAdapter  {
 
     public Cursor getAllGuests(){
         db= helper.getWritableDatabase();
-        Cursor mCursor= db.query(HomeStayDbHelper.GUEST_TABLE_NAME,null,null,null,null,null,HomeStayDbHelper.GUEST_DATE);
+        Cursor mCursor= db.query(HomeStayDbHelper.GUEST_TABLE_NAME,null,null,null,null,null,HomeStayDbHelper.GUEST_DATE +" "+ "DESC");
         if (mCursor != null ){
             mCursor.moveToNext();
         }
