@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppMaterialTheme" parent="SuperMaterialTheme">
+        <!--for lollipop and above versions only-->
+
+
+
+    </style>
+</resources>
