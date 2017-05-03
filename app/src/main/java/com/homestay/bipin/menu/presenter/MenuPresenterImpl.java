@@ -10,6 +10,8 @@ import com.homestay.bipin.menu.view.FoodMenuView;
 import com.homestay.bipin.order.Order;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Bipin on 4/29/17.
@@ -70,12 +72,17 @@ public class MenuPresenterImpl implements MenuPresenter, MenuInteractor.OnMenuLo
     public void addToOrder(Integer food_id, String food_name, Integer price, Integer quantity) {
         Integer userId=foodMenuView.getUser_id();
         Order myOrder = new Order(food_id,food_name,price,quantity,quantity*price ,userId);
-        for (Order order: orderList){
-            if (order.getFoodId().equals(myOrder.getFoodId())){
-                orderList.remove(order);
+
+        Iterator<Order> iterator = orderList.iterator();
+        while(iterator.hasNext()){
+            Order order = iterator.next();
+            if (order.getFoodId()==myOrder.getFoodId()){
+                iterator.remove();
             }
         }
+
         orderList.add(myOrder);
+
 
 
     }

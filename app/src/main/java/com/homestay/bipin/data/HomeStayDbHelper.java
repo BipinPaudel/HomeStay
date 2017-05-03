@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class HomeStayDbHelper extends SQLiteOpenHelper {
 
-
     private static final String DATABASE_NAME="homestay.db";
     private static final int DATABASE_VERSION=2;
 
@@ -44,7 +43,7 @@ public class HomeStayDbHelper extends SQLiteOpenHelper {
 
 
 
-private Context context;
+    private Context context;
 
     public HomeStayDbHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);

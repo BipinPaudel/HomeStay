@@ -49,7 +49,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyMenu
         holder.foodView.setText(foodMenu.getFood());
         holder.priceView.setText(String.valueOf(foodMenu.getPrice()));
         holder.typeView.setText(foodMenu.getType());
-
+        System.out.println("adapter set hai hai");
 
         holder.elegantNumberButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
             @Override

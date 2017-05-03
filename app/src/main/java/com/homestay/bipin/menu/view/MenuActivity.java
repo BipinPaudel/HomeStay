@@ -98,6 +98,7 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
             foodMenu.add(singleFood);
             menuCursor.moveToNext();
         }
+
         System.out.println(foodMenu.size());
 
         adapter = new FoodMenuAdapter(MenuActivity.this,foodMenu);
@@ -122,7 +123,7 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
         args.putSerializable("order_array",(Serializable) orderList);
 
         intent.putExtra("orders",args);
-        menuPresenter.onStop();
+        //menuPresenter.onStop();
 
 //        String orderArrayString = gs.toJson(orderList,Order.class);
 //        intent.putExtra("order_array",orderArrayString);

@@ -1,27 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.homestay.bipin.menu.view.MenuActivity">
-
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/menu_recycler_id">
-
-    </android.support.v7.widget.RecyclerView>
-
-
-    <TextView
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/proceed"
-        android:id="@+id/proceed_to_order_id"/>
-
-</LinearLayout>
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"    android:layout_width="match_parent"    android:layout_height="match_parent"    android:orientation="vertical"    tools:context="com.homestay.bipin.menu.view.MenuActivity">        <android.support.v7.widget.RecyclerView            android:layout_width="match_parent"            android:layout_height="0dp"            android:id="@+id/menu_recycler_id"            android:layout_weight="10"            app:layout_behavior="@string/appbar_scrolling_view_behavior"            android:scrollbars="vertical"  />       <TextView           android:layout_width="match_parent"           android:layout_height="wrap_content"           android:text="@string/proceed"           android:id="@+id/proceed_to_order_id"           android:layout_margin="16dp"           android:gravity="center"           android:layout_weight="1"           /></LinearLayout>

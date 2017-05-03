@@ -1,6 +1,7 @@
 package com.homestay.bipin.order;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +21,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyOrderViewH
 
     LayoutInflater inflater;
     Context context;
+
     List<Order> data = Collections.emptyList();
     public OrderAdapter(Context context, List data){
         this.context=context;
         this.data=data;
+        inflater= LayoutInflater.from(context);
     }
 
     @Override
@@ -39,9 +42,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyOrderViewH
         Order order = data.get(position);
 
         holder.foodName.setText(order.getFoodName());
-        holder.quantity.setText(order.getFoodQuantity());
-        holder.price.setText(order.getFoodPrice());
-        holder.total.setText(order.getFoodTotal());
+        holder.quantity.setText(String.valueOf(order.getFoodQuantity()));
+        holder.price.setText(String.valueOf(order.getFoodPrice()));
+        holder.total.setText(String.valueOf(order.getFoodTotal()));
     }
 
     @Override

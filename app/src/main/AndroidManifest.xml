@@ -12,16 +12,18 @@
         android:theme="@style/AppMaterialTheme"
         tools:replace="android:theme">
         <activity android:name=".login.view.LoginActivity">
+
+        </activity>
+        <activity
+            android:name=".guest.guestList.view.GuestActivity"
+            android:label="@string/title_activity_guest"
+            android:theme="@style/AppMaterialTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".guest.guestList.view.GuestActivity"
-            android:label="@string/title_activity_guest"
-            android:theme="@style/AppMaterialTheme.NoActionBar" />
         <activity android:name=".guest.guestOption.view.GuestOptionActivity" />
         <activity android:name=".menu.view.MenuActivity" />
         <activity android:name=".order.view.OrderActivity"></activity>
