@@ -1,16 +1,28 @@
 package com.homestay.bipin.guest.guestList.view;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
 import android.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.homestay.bipin.R;
 import com.homestay.bipin.data.HomeStayDbHelper;
@@ -19,6 +31,7 @@ import com.homestay.bipin.guest.fragment.guestAdd.GuestEditFragment;
 import com.homestay.bipin.guest.fragment.guestList.GuestListFragment;
 import com.homestay.bipin.guest.fragment.guestList.GuestListFragmentImpl;
 import com.homestay.bipin.guest.fragment.guestOption.GuestOptionFragment;
+import com.homestay.bipin.guest.guestList.Guest;
 import com.homestay.bipin.guest.guestList.GuestDataBaseAdapter;
 import com.homestay.bipin.guest.guestList.presenter.GuestPresenter;
 import com.homestay.bipin.guest.guestList.presenter.GuestPresenterImpl;
@@ -36,7 +49,7 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
     FragmentManager fragmentManager;
     GuestListFragmentImpl guestListFragment;
     GuestOptionFragment guestOptionFragment;
-
+    ActionMode actionMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,13 +121,15 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
         guestPresenter.validateEditGuest(id, name);
         guestPresenter.loadGuestData();
 //        reloadActivity();
-
-
     }
 
     @Override
     public void guestNotAddedSnack() {
-        Snackbar.make(coordinatorLayout, "Name not added", Snackbar.LENGTH_SHORT).show();
+        Snackbar snack=Snackbar.make(coordinatorLayout, "Name not added", Snackbar.LENGTH_SHORT);
+        View view=snack.getView();
+        TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.RED);
+        snack.show();
 
     }
 
@@ -124,6 +139,22 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
         guestPresenter.loadGuestData();
 
 //        reloadActivity();
+    }
+
+    @Override
+    public void guestDeletedSnack() {
+        Snackbar.make(coordinatorLayout,"Guest Deleted Successfully",Snackbar.LENGTH_SHORT).show();
+        guestPresenter.loadGuestData();
+    }
+
+    @Override
+    public void guestNotDeletedSnack() {
+        Snackbar snack=Snackbar.make(coordinatorLayout,"Guest Deleted Successfully",Snackbar.LENGTH_SHORT);
+        View view=snack.getView();
+        TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.RED);
+        snack.show();
+
     }
 
     @Override
@@ -156,22 +187,101 @@ public class GuestActivity extends AppCompatActivity implements GuestView, Guest
     }
 
     @Override
-    public void passEditInfo(Integer id, String name) {
+    public void passEditInfo(Guest guest) {
 
-
+        clearContextualMenu();
         GuestEditFragment gef = new GuestEditFragment();
         Bundle b = new Bundle();
-        b.putInt("id", id);
-        b.putString("name", name);
+        b.putInt("id", guest.getId());
+        b.putString("name", guest.getName());
         gef.setArguments(b);
-        System.out.println("inside here");
         gef.show(getFragmentManager(), "EEE");
 
 
     }
 
     @Override
+    public void passDeleteInfo(final Guest guestInfo) {
+        clearContextualMenu();
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Delete");
+        alert.setMessage("Are you sure you want to delete "+guestInfo.getName() +" ?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getDeleteOk(guestInfo);
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alert.show();
+
+    }
+
+    @Override
+    public void clearContextualMenu() {
+        if (actionMode!=null){
+            actionMode.finish();
+        }
+    }
+
+    @Override
+    public void getDeleteOk(Guest guestInfo) {
+        Log.d("D","delete ok "+guestInfo.getName());
+        guestPresenter.validateDelete(guestInfo);
+
+    }
+
+    @Override
+    public void openContextualMenu(Guest guestInfo) {
+         actionMode=GuestActivity.this.startActionMode(new MyContextualCallback(guestInfo));
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
 
+    }
+
+    class MyContextualCallback implements ActionMode.Callback{
+
+        Guest guest;
+        public MyContextualCallback(Guest guest){
+            this.guest=guest;
+
+        }
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.contextual_guest_menu,menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            mode.setTitle("Edit Guest");
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.edit:
+                    passEditInfo(guest);
+
+                    break;
+                case R.id.delete:
+                    passDeleteInfo(guest);
+                    break;
+            }
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mode.invalidate();
+        }
     }
 }

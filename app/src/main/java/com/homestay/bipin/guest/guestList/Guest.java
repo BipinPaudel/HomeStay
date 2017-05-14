@@ -19,6 +19,11 @@ public class Guest {
     }
 
     private String date;
+
+    public Guest(Integer id,String name){
+        this.id=id;
+        this.name=name;
+    }
     public Guest(Integer id, String name,String date){
         this.id=id;
         this.name=name;

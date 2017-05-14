@@ -7,9 +7,9 @@
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize">
-        <!--app:theme="@style/MyToolbarTheme"-->
-        <!--app:popupTheme="@style/MyPopupTheme">-->
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/MyToolbarTheme"
+        app:popupTheme="@style/MyPopupTheme">
 
 
     </android.support.v7.widget.Toolbar>

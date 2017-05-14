@@ -17,8 +17,10 @@ public interface FoodMenuView {
 
      Integer getUser_id();
 
+    void test(int position);
 
-        void addItemToMenu(Integer id,String foodName,Integer price,Integer quantity);
+
+        void addItemToMenu(Integer id,String foodName,Integer price,Integer quantity,Integer position);
 //        void subtractItemToMenu(Integer id,Integer price,Integer quantity);
     void navigateToOrder(List<Order> orderList);
 

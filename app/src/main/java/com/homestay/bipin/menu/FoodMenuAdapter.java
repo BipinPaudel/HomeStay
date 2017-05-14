@@ -2,6 +2,7 @@ package com.homestay.bipin.menu;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyMenu
     LayoutInflater inflater;
     Context context;
 
+
+
     List<FoodMenu> data= Collections.emptyList();
 
     public FoodMenuAdapter(Context context,List data){
@@ -44,11 +47,13 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyMenu
     }
 
     @Override
-    public void onBindViewHolder(final MyMenuViewHoler holder, int position) {
+    public void onBindViewHolder(final MyMenuViewHoler holder, final int position) {
         final FoodMenu foodMenu = data.get(position);
         holder.foodView.setText(foodMenu.getFood());
         holder.priceView.setText(String.valueOf(foodMenu.getPrice()));
         holder.typeView.setText(foodMenu.getType());
+        holder.elegantNumberButton.setNumber(String.valueOf(foodMenu.getQuantity()));
+
         System.out.println("adapter set hai hai");
 
         holder.elegantNumberButton.setOnClickListener(new ElegantNumberButton.OnClickListener() {
@@ -56,7 +61,17 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyMenu
             public void onClick(View view) {
                 Integer quantity = Integer.parseInt(holder.elegantNumberButton.getNumber());
 //                Order order = new Order(foodMenu.getId(),foodMenu.getFood(),foodMenu.getPrice(),foodMenu.getQuantity());
-                foodMenuView.addItemToMenu(foodMenu.getId(),foodMenu.getFood(),foodMenu.getPrice(),quantity);
+
+                foodMenuView.addItemToMenu(foodMenu.getId(),foodMenu.getFood(),foodMenu.getPrice(),quantity,position);
+                //foodMenuView.test(position);
+            }
+        });
+
+
+        holder.elegantNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+            @Override
+            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                Log.d("TAG", String.format("oldValue: %d   newValue: %d", oldValue, newValue));
             }
         });
 

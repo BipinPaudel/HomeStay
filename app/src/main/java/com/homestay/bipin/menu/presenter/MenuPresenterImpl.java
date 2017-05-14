@@ -3,6 +3,7 @@ package com.homestay.bipin.menu.presenter;
 import android.database.Cursor;
 import android.widget.ProgressBar;
 
+import com.homestay.bipin.menu.FoodMenuAdapter;
 import com.homestay.bipin.menu.MenuDatabaseAdapter;
 import com.homestay.bipin.menu.interactor.MenuInteractor;
 import com.homestay.bipin.menu.interactor.MenuInteractorImpl;
@@ -66,6 +67,7 @@ public class MenuPresenterImpl implements MenuPresenter, MenuInteractor.OnMenuLo
         if (orderList!=null){
             orderList=null;
         }
+
     }
 
     @Override
@@ -80,10 +82,7 @@ public class MenuPresenterImpl implements MenuPresenter, MenuInteractor.OnMenuLo
                 iterator.remove();
             }
         }
-
-        orderList.add(myOrder);
-
-
-
+        if (myOrder.getFoodQuantity()!=0)
+            orderList.add(myOrder);
     }
 }

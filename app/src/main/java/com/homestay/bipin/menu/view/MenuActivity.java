@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
     TextView proceed;
     FoodMenuAdapter adapter;
     LinearLayoutManager recyclerManager;
-
+    List<FoodMenu> foodMenu;
 
 
     Integer user_id;
@@ -45,6 +46,8 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
         proceed= (TextView) findViewById(R.id.proceed_to_order_id);
         recyclerView = (RecyclerView) findViewById(R.id.menu_recycler_id);
         intent = getIntent();
@@ -56,7 +59,7 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
         ArrayList foodtype=new
                 ArrayList(Arrays.asList("local","local","special"));
 
-//        MenuDatabaseAdapter mda = new MenuDatabaseAdapter(this);
+        MenuDatabaseAdapter mda = new MenuDatabaseAdapter(this);
 //        for (int i=0;i<3;i++){
 //            mda.insertMenu(foodName.get(i).toString(),
 //                    foodPrice.get(i),
@@ -84,7 +87,7 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
 
     @Override
     public void setItems(Cursor menuCursor) {
-        List<FoodMenu> foodMenu = new ArrayList<>();
+        foodMenu = new ArrayList<>();
         while(!menuCursor.isAfterLast()){
             Integer id = menuCursor.getInt(menuCursor.getColumnIndex(HomeStayDbHelper.MENU_ID));
             String food=menuCursor.getString(menuCursor.getColumnIndex(HomeStayDbHelper.MENU_FOOD_NAME));
@@ -110,8 +113,15 @@ public class MenuActivity extends AppCompatActivity implements FoodMenuView,View
     }
 
     @Override
-    public void addItemToMenu(Integer id,String foodName,Integer price,Integer quantity) {
+    public void test(int position){
+        adapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void addItemToMenu(Integer id,String foodName,Integer price,Integer quantity,Integer position) {
         System.out.println("menu add" +id + price + " " + quantity);
+        foodMenu.get(position).setQuantity(quantity);
+        adapter.notifyItemChanged(position);
         menuPresenter.addToOrder(id,foodName,price,quantity);
     }
 

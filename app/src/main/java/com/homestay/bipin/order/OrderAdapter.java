@@ -37,6 +37,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyOrderViewH
         return myOrderViewHolder;
     }
 
+    public Order getId(int position){
+        return data.get(position);
+    }
     @Override
     public void onBindViewHolder(MyOrderViewHolder holder, int position) {
         Order order = data.get(position);

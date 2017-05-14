@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="overflowMenuBg">#ede2b2</color>
+    <color name="grey_800">#838493</color>
+
+    <color name="red">#FF94041C</color>
 </resources>

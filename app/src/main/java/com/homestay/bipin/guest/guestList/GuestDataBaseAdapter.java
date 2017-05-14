@@ -54,6 +54,12 @@ public class GuestDataBaseAdapter  {
         return mCursor;
     }
 
+    public Integer deleteGuest(int id){
+        db=helper.getWritableDatabase();
+        int result=db.delete(HomeStayDbHelper.GUEST_TABLE_NAME,HomeStayDbHelper.GUEST_GID+"=?",new String[]{String.valueOf(id)});
+        db.close();
+        return result;
+    }
 
 
 

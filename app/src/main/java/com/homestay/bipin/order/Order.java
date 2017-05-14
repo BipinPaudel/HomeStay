@@ -24,6 +24,30 @@ public Order(Integer foodId,String foodName,Integer foodPrice,Integer foodQuanti
     this.userOrderId= userOrderId;
 }
 
+    public void setFoodId(Integer foodId) {
+        this.foodId = foodId;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
+    public void setFoodPrice(Integer foodPrice) {
+        this.foodPrice = foodPrice;
+    }
+
+    public void setFoodQuantity(Integer foodQuantity) {
+        this.foodQuantity = foodQuantity;
+    }
+
+    public void setFoodTotal(Integer foodTotal) {
+        this.foodTotal = foodTotal;
+    }
+
+    public void setUserOrderId(Integer userOrderId) {
+        this.userOrderId = userOrderId;
+    }
+
     public Integer getFoodId() {
         return foodId;
     }

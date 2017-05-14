@@ -2,6 +2,7 @@ package com.homestay.bipin.guest.guestList.presenter;
 
 import android.database.Cursor;
 
+import com.homestay.bipin.guest.guestList.Guest;
 import com.homestay.bipin.guest.guestList.interactor.GuestInteractor;
 import com.homestay.bipin.guest.guestList.interactor.GuestInteractorImpl;
 import com.homestay.bipin.guest.guestList.view.GuestView;
@@ -10,7 +11,8 @@ import com.homestay.bipin.guest.guestList.view.GuestView;
  * Created by Bipin on 4/26/17.
  */
 
-public class GuestPresenterImpl implements GuestPresenter,GuestInteractor.OnGuestAddedListener,GuestInteractor.OnGuestLoadedListener{
+public class GuestPresenterImpl implements GuestPresenter,GuestInteractor.OnGuestAddedListener,GuestInteractor.OnGuestLoadedListener,
+GuestInteractor.OnGuestDeletedListener{
 
 
     GuestView guestView;
@@ -43,6 +45,11 @@ public class GuestPresenterImpl implements GuestPresenter,GuestInteractor.OnGues
     }
 
     @Override
+    public void validateDelete(Guest guest) {
+        guestInteractor.deleteGuestInDatabase(guest.getId(),this);
+    }
+
+    @Override
     public void onGuestAddSuccess() {
         if (guestView!=null){
             guestView.guestAddedSnack();
@@ -68,5 +75,19 @@ public class GuestPresenterImpl implements GuestPresenter,GuestInteractor.OnGues
     @Override
     public void OnGuestLoadedError() {
 
+    }
+
+    @Override
+    public void onGuestDeleteSuccess() {
+        if (guestView!=null){
+            guestView.guestDeletedSnack();
+        }
+    }
+
+    @Override
+    public void onGuestDeleteError() {
+        if (guestView!=null){
+            guestView.guestNotDeletedSnack();
+        }
     }
 }

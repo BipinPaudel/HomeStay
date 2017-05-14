@@ -19,8 +19,13 @@ public interface GuestInteractor {
         void OnGuestLoadedError();
     }
 
+    interface OnGuestDeletedListener{
+        void onGuestDeleteSuccess();
+        void onGuestDeleteError();
+    }
+
     void addGuestToDatabase(String name,OnGuestAddedListener listener);
     void editGuestToDatabase(Integer id,String name,OnGuestAddedListener listener);
-
+    void deleteGuestInDatabase(Integer id,OnGuestDeletedListener listener);
     void loadGuest(OnGuestLoadedListener listener);
 }

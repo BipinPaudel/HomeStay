@@ -70,11 +70,14 @@ public class GuestListFragmentImpl extends Fragment implements GuestListFragment
 
                     @Override
                     public boolean onLongClick(View view, int position) {
-                        Integer id = guestAdapter.getId(position).getId();
-                        String name = guestAdapter.getId(position).getName();
-                        System.out.println("long clicked");
-                        System.out.println(name);
-                        passToGuest.passEditInfo(id,name);
+//                        Integer id = guestAdapter.getId(position).getId();
+//                        String name = guestAdapter.getId(position).getName();
+//                        System.out.println("long clicked");
+//                        System.out.println(name);
+//                        Guest guest= new Guest(id,name);
+                        passToGuest.openContextualMenu(guestAdapter.getId(position));
+
+//                        passToGuest.passEditInfo(id,name);
                         return true;
 
                     }
@@ -152,7 +155,9 @@ public class GuestListFragmentImpl extends Fragment implements GuestListFragment
 
         void passListInfo(Integer id,String data);
 
-        void passEditInfo(Integer id, String name);
+
+
+        void openContextualMenu(Guest guestInfo);
     }
 
 }

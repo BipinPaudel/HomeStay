@@ -56,6 +56,16 @@ public class GuestInteractorImpl implements GuestInteractor{
     }
 
     @Override
+    public void deleteGuestInDatabase(Integer id, OnGuestDeletedListener listener) {
+        if (guestDataBaseAdapter.deleteGuest(id) >0){
+            listener.onGuestDeleteSuccess();
+        }
+        else{
+            listener.onGuestDeleteError();
+        }
+    }
+
+    @Override
     public void loadGuest(OnGuestLoadedListener listener) {
         System.out.println("inside load Guest");
         Cursor cursor = guestDataBaseAdapter.getAllGuests();

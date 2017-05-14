@@ -45,14 +45,5 @@
             android:hint="hint" />
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="33dp"
-        android:text="TextView" />
-
 
 </LinearLayout>

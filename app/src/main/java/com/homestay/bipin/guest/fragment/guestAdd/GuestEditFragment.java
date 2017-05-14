@@ -79,6 +79,7 @@ public class GuestEditFragment extends DialogFragment {
         // Get the layout inflater
 
         builder.setView(textEntryView)
+
                 // Add action buttons
                 .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                     @Override
